@@ -1,84 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
 /* ============================================================
    CSS VARIABLES PER I TEMI SCACCHIERA
-   Permettono di cambiare tema senza modificare il codice
    ============================================================ */
 
 :root {
-    --theme-light: #F0D0A0;
-    --theme-dark:  #8B4513;
-    --bg-page:     #030712;
-    --bg-panel:    #111827;
+    --gold:        #D4AF37;
+    --gold-light:  #F0D060;
+    --gold-dark:   #A0832A;
+    --bg-900:      #0A0A0F;
+    --bg-800:      #12121A;
+    --bg-700:      #1A1A26;
+    --bg-600:      #22223A;
+    --border:      rgba(212, 175, 55, 0.2);
+    --text-muted:  #6B7280;
 }
-
-/* Tema Legno (default) */
-[data-theme="wood"] {
-    --theme-light: #F0D0A0;
-    --theme-dark:  #8B4513;
-}
-
-/* Tema Marmo */
-[data-theme="marble"] {
-    --theme-light: #E8E4E0;
-    --theme-dark:  #6B7B8D;
-}
-
-/* Tema Feltro */
-[data-theme="felt"] {
-    --theme-light: #C8D8A8;
-    --theme-dark:  #3A5A2A;
-}
-
-/* Tema Noce */
-[data-theme="walnut"] {
-    --theme-light: #D4A882;
-    --theme-dark:  #4A2810;
-}
-
-/* Tema Oceano */
-[data-theme="ocean"] {
-    --theme-light: #B8D4E8;
-    --theme-dark:  #1A4A6A;
-}
-
-/* Tema Notte */
-[data-theme="night"] {
-    --theme-light: #4A4E5A;
-    --theme-dark:  #1E2028;
-}
-
-/* ============================================================
-   STILI GLOBALI
-   ============================================================ */
 
 * {
     box-sizing: border-box;
-    margin:     0;
-    padding:    0;
+    margin: 0;
+    padding: 0;
 }
 
-html,
-body {
-    background-color: #030712;
-    color:            #ffffff;
-    font-family:      var(--font-inter), sans-serif;
+html, body {
+    background-color: var(--bg-900);
+    color: #F9FAFB;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
 }
 
-/* Scrollbar personalizzata per tema scuro */
-::-webkit-scrollbar {
-    width: 6px;
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-800); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-::-webkit-scrollbar-track {
-    background: #1f2937;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-::-webkit-scrollbar-thumb {
-    background:    #4b5563;
-    border-radius: 3px;
+@keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
+@keyframes pulse-gold {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.4); }
+    50%       { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
+
+.text-gold-shimmer {
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold-light), var(--gold-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s linear infinite;
+}
+
+.glass-card {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(212,175,55,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(212,175,55,0.1);
+}
+
+.btn-gold {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    background-size: 200% auto;
+    color: #0A0A0F;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 14px 28px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-gold:hover {
+    background-position: right center;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,175,55,0.4);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--gold);
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 14px 28px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background: rgba(212,175,55,0.1);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+}
+
+.divider-gold {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+    margin: 8px 0;
 }
